@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include
+            resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include
+            resource="org/springframework/boot/logging/logback/file-appender.xml" />
+
+    <appender name="APP"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/eldritch-vault-app/logs/application.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+        </encoder>
+        <rollingPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>
+                /myapp/logs/archived/log_%d{dd-MM-yyyy}_%i.log
+            </fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    <!-- Log level is set here. Possible values: TRACE, DEBUG, INFO, WARN, ERROR
+          DEBUG is recommended on testing and development instances.
+          INFO is recommended on production instances.-->
+    <logger name="app.web.eldritch-vault" level="INFO" additivity="false">
+        <appender-ref ref="APP" />
+    </logger>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
