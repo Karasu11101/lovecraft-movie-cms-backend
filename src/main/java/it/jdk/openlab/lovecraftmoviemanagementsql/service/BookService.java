@@ -117,6 +117,7 @@ public class BookService {
         Optional<BookEntity> bookEntity = this.bookRepository.findById(id);
         BookEntity bookEntityObj = bookEntity.orElseThrow(
                 () -> new RuntimeException("A book with id " + id + " was not found"));
+
         return Optional.of(new Book(bookEntityObj.getId(), bookEntityObj.getTitle(),
                 bookEntityObj.getPlot(), bookEntityObj.getImage(), bookEntityObj.getPublished(),
                 bookEntityObj.getVersion()));

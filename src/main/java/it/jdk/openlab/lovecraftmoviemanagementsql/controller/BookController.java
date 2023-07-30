@@ -65,16 +65,16 @@ public class BookController {
 //        return ResponseEntity.status(HttpStatus.OK).body(this.bookService.findAllBooks());
 //    }
 
-    @ToLog(level = LOGGER_LEVEL)
+//    @ToLog(level = LOGGER_LEVEL)
     @GetMapping(value = "details/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Book> getBookDetails(@PathVariable Integer id) {
         Optional<Book> book = this.bookService.findBookById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(book.get());
-//        if(book.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        } else {
-//            return ResponseEntity.status(HttpStatus.OK).body(book.get());
-//        }
+//        return ResponseEntity.status(HttpStatus.OK).body(book.get());
+        if(book.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(book.get());
+        }
     }
 }
